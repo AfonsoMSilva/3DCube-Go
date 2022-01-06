@@ -2,4 +2,4 @@
 
 ## Work in Progress
 
-- [ ] Set Some Goals!
+- [ ] Make a proper ReadMe!

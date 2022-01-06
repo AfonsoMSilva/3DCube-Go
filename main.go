@@ -5,9 +5,10 @@ import(
 	"fmt"
 )
 
+// Window Size
 const (
-	screenWidth = 600
-	screenHeight = 800
+	screenWidth = 800
+	screenHeight = 600
 )
 
 func main() {
@@ -21,7 +22,7 @@ func main() {
 	// Creating Window
 	window, err := sdl.CreateWindow(
 		"3DCube",
-		sld.WINDOWPOS_UNDIFINED, sld.WINDOWPOS_UNDIFINED,
+		sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
 		screenWidth, screenHeight,
 		sdl.WINDOW_OPENGL)
 	if err != nil {
@@ -35,6 +36,20 @@ func main() {
 	if err != nil {
 		fmt.Println("Renderer Error: ", err)
 		return
+	}
+	defer renderer.Destroy()
+	for{
+
+		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
+			switch event.(type) {
+			case *sdl.QuitEvent:
+				return
+			}
+		}
+
+		renderer.SetDrawColor(255, 255, 255, 255)
+		renderer.Clear()
+		renderer.Present()
 	}
 
 }
