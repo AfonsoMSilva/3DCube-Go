@@ -39,18 +39,11 @@ func main() {
 	}
 	defer renderer.Destroy()
 
-	img, err := sdl.LoadBMP("sprites/player.bmp")
-	if err != nil{
-		fmt.Println("loading the player:", err)
+	plr, err := newPlayer(renderer)
+	if err != nil {
+		fmt.Println("creating player:", err)
 		return
 	}
-	defer img.Free()
-
-	playerTex, err := renderer.CreateTextureFromSurface(img)
-	if err != nil {
-		fmt.Println("creating texture:")
-	}
-	defer playerTex.Destroy()
 
 	for{
 
@@ -64,10 +57,8 @@ func main() {
 		renderer.SetDrawColor(255, 255, 255, 255)
 		renderer.Clear()
 
-		renderer.Copy(playerTex,
-			&sdl.Rect{X: 0, Y: 0, W: 105, H: 105},
-			&sdl.Rect{X: 0, Y: 0, W: 105, H: 105})
-
+		plr.draw(renderer)
+		plr.update()
 		renderer.Present()
 	}
 
