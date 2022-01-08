@@ -7,8 +7,8 @@ import(
 
 // Window Size
 const (
-	screenWidth = 800
-	screenHeight = 600
+	screenWidth = 600
+	screenHeight = 800
 )
 
 func main() {

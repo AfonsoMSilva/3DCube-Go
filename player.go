@@ -5,7 +5,10 @@ import (
 "fmt"
 )
 
-const playerSpeed = 1
+const (
+	playerSpeed = 0.5
+	playerSize = 105
+)
 
 type player struct {
 	tex *sdl.Texture
@@ -24,13 +27,19 @@ func newPlayer(renderer *sdl.Renderer) (p player, err error) {
 		return player{}, fmt.Errorf("creating player texture: %v", err)
 	}
 
+	p.x = screenWidth/2.0
+	p.y = screenHeight - playerSize/2.0
+
 	return p, nil
 }
 
 func (p *player) draw(renderer *sdl.Renderer) {
+	// converting player coordenates to top left of sprite
+	x := p.x - playerSize/2.0
+	y := p.y - playerSize/2.0
 	renderer.Copy(p.tex,
 		&sdl.Rect{X: 0, Y: 0, W: 105, H: 105},
-		&sdl.Rect{X: int32(p.x), Y: int32(p.y), W: 105, H: 105})
+		&sdl.Rect{X: int32(x), Y: int32(y), W: 105, H: 105})
 
 }
 
